@@ -1,0 +1,45 @@
+% Stat 133 Spring 2015
+% Lecture 3 January 28th 2015
+% Parts modified from Chris Paciorek's 2014 R bootcamp, UC Berkeley
+% Parts by Ingileif Hallgrímsdóttir
+
+# A bit on plotting
+
+R has several different plotting systems:
+
+- *base* graphics
+- *lattice* graphics
+- *ggplot2* (an add-on package)
+
+We start with a discussion of *base* graphics.
+
+```{r basic_plots}
+earnings <- read.dta("heights.dta")
+names(earnings)
+hist(earnings$earn)
+plot(earnings$earn ~ earnings$height)
+boxplot(earnings$earn ~ earnings$height)
+boxplot(earnings$earn ~ earnings$sex)
+```
+
+# Graphics options
+
+Check out `help(par)` for various [graphics settings](http://xkcd.com/833/); these are set via `par()` or within the specific graphics command (some can be set in either place), e.g.,
+```{r}
+par(pch = 2)
+plot(earnings$earn ~ earnings$height, xlab = 'height (cm)', 
+   ylab = 'earnings (log $)', log = 'y')
+```
+
+
+# Breakout
+
+0) What has been most confusing for you in this Module? Write it down on a piece of paper and leave it on the front desk, and we'll discuss it at the start of the next Module.
+
+1) Create a new R object that contains the heights in meters ($1 m \approx 39.4 in$) using the *height1* and *height2*  variables in the *earnings* dataset. Make a histogram of the new variable with breakpoints between the bins every 10 cm.
+
+2) For a random subset of 100 individuals from the earnings dataset, create a vector with their earnings.
+
+3) Make a plot of earnings against height with males as one color and females as another. You'll want to use the `col` argument. Consider modifying the size of the points (see `pch`) and using jittering (see `jitter()`) to make the plot more interpretable.
+
+
