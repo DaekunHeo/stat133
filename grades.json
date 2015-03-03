@@ -1,0 +1,23 @@
+{
+    "login": "DaekunHeo", 
+    "url": "git@github.com:DaekunHeo/stat133.git", 
+    "name": "Daekun Heo", 
+    "email": "hdk777@berkeley.edu", 
+    "github_name": "DaekunHeo", 
+    "status": "enrolled", 
+    "grades": {
+        "hw1": {
+            "note": "", 
+            "hash": "e4ccb53eaf5690262cabd348d7683ca69399e840", 
+            "earned": 18, 
+            "possible": 20, 
+            "penalty": 0, 
+            "parts": {
+                "hw1": {
+                    "possible": 20, 
+                    "earned": 18
+                }
+            }
+        }
+    }
+}
