@@ -1,13 +1,13 @@
 # Please load in the dataset included in the midterm1 directory. It will be
 # required to perform the following tasks. The dataset includes data for houses
 # in the city of Berkeley.
-
+load('SFHousing-2.rda')
 
 # calculate the mean and median bsqft of houses in Berkeley. Store these as the
 # variables <mean.bsqft> and <med.bsqft> respectively.
 
-# mean.bsft <- your code here
-# med.bsqft <- your code here
+mean.bsqft <- mean(housing$bsqft[housing$city == "Berkeley"], na.rm= TRUE)
+med.bsqft <- median(housing$bsqft[housing$city == "Berkeley"], na.rm= TRUE)
 
 
 # For each house in the dataset, calculate the squared difference between its
@@ -15,8 +15,7 @@
 # <bsqft.diffs>. Note that this should be a numeric vector with length equal to
 # the number of observations in the dataset
 
-# bsqft.diffs <- your code here
-
+bsqft.diffs <- sapply(housing$bsqft[housing$city == "Berkeley"], function(x)(x - med.bsqft)^2)
 
 
 # Please create two new data frames with the following two subsets
@@ -24,15 +23,15 @@
 # 1) houses whose bsqft is strictly greater than <mean.bsqft>:  <bsft.greater>
 # 2) houses whose bsqft is less than or equal to  <mean.bsqft>: <bsqft.less>
 
-# bsqft.greater <- your code here
-# bsqft.less <- your code here
+bsqft.greater <- housing[housing$bsqft > mean.bsqft,]
+bsqft.less <- housing[housing$bsqft <= mean.bsqft,]
 
 
 # For each of your subsets, create a vector giving the price of each house. Name
 # these variables <rooms.greater.price> and <rooms.less.price>.
 
-# rooms.greater.price <- your code here
-# rooms.less.price <- your code here
+rooms.greater.price <- bsqft.greater$price
+rooms.less.price <- bsqft.less$price
 
 
 
@@ -50,8 +49,11 @@
 
 priceByRooms <- function(room.range, br, prices) {
 
-    # your code here
-
+  yes= housing[housing$br >= min(room.range) & housing$br <= max(room.range),]  
+  br= yes$br
+    #sapply(housing$br[housing$br >= min(room.range) & housing$br <= max(room.range), mean]
+    #mean(housing$price[]
+  return(mean(yes), br)
 }
 
 
@@ -61,3 +63,5 @@ priceByRooms <- function(room.range, br, prices) {
 # 2) axis labels: "price" and "number of rooms"
 # 3) plotting character set to 20
 
+plot(x = housing$price, y = housing$price, main = "Housing price vs Number of Rooms", 
+     xlab= "number of rooms", ylab= "price", type = "20"")
