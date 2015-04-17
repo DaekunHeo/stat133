@@ -23,6 +23,12 @@
 # all.equal(numDigits("1z3p ! 21"), 4)
 # all.equal(numDigits("abcdefg"), 0)
 
+numDigits= function(chvec) {
+  chvec = unlist(strsplit(chvec, ""))
+  total = length(grep("[[:digit:]]", chvec))
+  return(total)
+}
+
 
 
 # Write a function called hisToTheir that converts every instance of him
@@ -34,6 +40,16 @@
 #
 # and return
 #   <theirchvec>: The same character vector with the required substitutions.
+
+hisToTheir = function(chvec) {
+  chvec = tolower(chvec)
+  theirchvec = unlist(strsplit(chvec, " "))
+  theirchvec=gsub("\\bhim\\b","them",theirchvec)
+  theirchvec=gsub("\\bhe\\b","they",theirchvec)
+  theirchvec=gsub("\\bhis\\b","their",theirchvec)
+  theirchvec = paste(theirchvec, collapse= " ")
+  return(theirchvec)
+}
 
 #A test case
 all.equal(
@@ -55,3 +71,15 @@ all.equal(
 #  <letter> The most common letter or letters in the string.
 # For example mostCommonLetter("aabbccccdddd") should return 
 # [1] "c" "d"
+
+mostCommonLetter= function(chvec) {
+  chvec = tolower(chvec)
+  chvec = unlist(strsplit(chvec, ""))
+  chvec = chvec[grep("[[:alpha:]]", chvec)]
+  chvec = table(chvec)
+  chvec = data.frame(chvec, stringsAsFactors = FALSE)
+  letter = chvec[which(chvec$Freq ==max(chvec$Freq)), "chvec"]
+  letter = as.character(letter)
+  
+  return(letter)
+}
