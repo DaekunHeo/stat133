@@ -9,6 +9,10 @@
 #   <num.star>: an integer indicating how many elements of <chvec> contain the "*"
 #     symbol. For example: numStarElements(c('star', 'st*r', '***')) should return 2
 
+numStarElements = function(chvec) {
+  num.star = length(grep("\\*", chvec))
+  return(num.star)
+}
 
 
 # Write a function called numDigits that counts the number of (single) digits in
