@@ -18,16 +18,19 @@ genBootY = function(x, y, rep = TRUE){
   ### Return a vector of random y values the same length as y
   ### You can assume that the xs are sorted
   ### Hint use tapply here!
-  
-
+  ret= tapply(y, x, function(z) {
+    return(sample(z, length(z), replace= TRUE)
+  }))
+  return(ret)
 }
 
-genBootR = function(fit, err, rep = TRUE){
+genBootR = function(fit, err, rep= TRUE){
   ### Sample the errors 
   ### Add the errors to the fit to create a y vector
   ### Return a vector of y values the same length as fit
   ### HINT: It can be easier to sample the indices than the values
-  
+  vec= fit + sample(err, length(err), replace= FALSE)
+  return(vec)
  
 }
 
@@ -37,8 +40,8 @@ fitModel = function(x, y, degree = 1){
   ### y and x are numeric vectors of the same length
   ### Return the coefficients as a vector 
   ### HINT: Take a look at the repBoot function to see how to use lm()
-  
- 
+
+ coeff= lm(y ~ x, data.frame(x == x, y == y)
   return(coeff)
 }
 
@@ -49,7 +52,12 @@ oneBoot = function(data, fit = NULL, degree = 1){
 
  
   ### Use fitModel to fit a model to this bootstrap Y 
- 
+  if (is.null(fit)) {
+    data[ ,2] <- genBootY(data[ ,1], data[ ,2])
+  } else {
+    data[ ,2] <- genBootR(fit[ ,1], fit[ ,2])
+  }
+  
 }
 
 repBoot = function(data, B = 1000){
@@ -76,8 +84,25 @@ repBoot = function(data, B = 1000){
   ### fit is for a line or a quadratic
   ### Return this list
   
-  return(coeff)
-} 
+  mat1= matrix(0, ncol= 2, nrow= B)
+  mat2= matrix(0, ncol= 3, nrow= B)
+  mat3= matrix(0, ncol= 2, nrow= B)
+  mat4= matrix(0, ncol= 3, nrow= B)
+  
+  
+  fit1= lm(data[,2] ~ data[,1])
+  fit2= lm(data[,2] ~ data[,1] + I(data[,1]^2))
+  linfit= cbind(fit1$fitted, fit1$residuals)
+  quadfit= cbind(fit2$fitted, fit2$residuals)
+  for (i in 1:B){
+    mat1[i,]= matrix(oneBoot(data, fit= NULL, degree=1))
+    mat2[i,]= matrix(oneBoot(data, fit= NULL, degree=2))
+    mat3[i,]= matrix(oneBoot(data, fit= linfit, degree=1))
+    mat4[i,]= matrix(oneBoot(data, fit= quadfit, degree=2))
+  }
+  return(list(mat1, mat2, mat3, mat4))
+}
+
 
 bootPlot = function(x, y, coeff, trueCoeff){
   ### x and y are the original data
@@ -96,7 +121,22 @@ bootPlot = function(x, y, coeff, trueCoeff){
   
   ### Use trueCoeff to add true line/curve - 
   ###  Make the true line/curve stand out
-
+  
+  plot(x,y)
+  
+  if (ncol(coeff) == 2) {
+    mapply(function(a, b) abline(a, b, col= "blue"), coeff[ ,1], coeff[ ,2])
+  } else {
+    mapply(function(a, b, c) {
+    curve(a + b*x + c*x^2, add= TRUE, col= "blue"), coeff[ ,1], coeff[ ,2], coeff[ ,3])
+    }
+  } 
+  
+  if (length(trueCoeff) == 2) {
+    abline(trueCoeff[1], trueCoeff[2], col= "green")
+  } else {
+    curve(trueCoeff[1] + trueCoeff[2]*x + trueCoeff[3]*x^2, add= TRUE, col= "red")
+  }
 }
 
 ### Run your simulation by calling this function
