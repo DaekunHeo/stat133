@@ -1,0 +1,11 @@
+w  -1
+line 42: length 12  -1
+line 51: wrong table  -2
+f3  -1
+boxplot  -2
+line 101: wrong plot  -2
+line 106  -3
+first.cache  -3
+line 142  -3
+
+Score: 15/33
