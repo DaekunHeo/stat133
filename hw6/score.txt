@@ -1,0 +1,3 @@
+simulation takes forever... -2
+
+Score: 18/20
