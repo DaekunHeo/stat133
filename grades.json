@@ -18,6 +18,36 @@
                     "earned": 18
                 }
             }
+        }, 
+        "hw4": {
+            "note": "", 
+            "hash": "026f0a2f5a7aa102095d8d5ee206c52d6ab62db8", 
+            "earned": 8, 
+            "possible": 20, 
+            "penalty": 0, 
+            "parts": {
+                "hw4": {
+                    "possible": 20, 
+                    "earned": 8
+                }
+            }
+        }, 
+        "hw2": {
+            "note": "", 
+            "hash": "9fbb934bc12cc3568e30abe42041297839ba4bdf", 
+            "earned": 24, 
+            "possible": 31, 
+            "penalty": 0, 
+            "parts": {
+                "hw2_fig": {
+                    "possible": 20, 
+                    "earned": 19
+                }, 
+                "hw2": {
+                    "possible": 11, 
+                    "earned": 5
+                }
+            }
         }
     }, 
     "section": "lab3"
