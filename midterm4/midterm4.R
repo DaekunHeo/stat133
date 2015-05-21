@@ -37,9 +37,10 @@ text1 <- sapply(phrases, function(x) {
   grep("", phrases)
 
 }
+)
 # Create a vector [text2] that lists the elements in phrases that
 # START with the letter "d"
-text2 <- grep("^d", phrase)
+text2 <- grep("^d", phrases)
 
 # Create a variable [no.punct] that equals the number of phrases with a punctuation mark in it.
 no.punct <- length(grep("[[:punct:]]", phrases))
