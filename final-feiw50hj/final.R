@@ -411,11 +411,11 @@ par(mfrow= c(2,2))
 #k= c(10000, 50000, 100000, 500000)
 #B = 5000
 k= c(100, 500, 1000, 5000)
-B = 100
+B = 50
 store= list()
 for(i in 1:length(k)) {
   store[[i]] = NumJackpot(k[i], B)
-  hist(store[[i], freq= FALSE, xlab= "Number of Winners")
+  hist(store[[i]], freq= FALSE, xlab= "Number of Winners")
 }
 
 #################################################################
